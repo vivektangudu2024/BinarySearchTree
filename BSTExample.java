@@ -146,6 +146,31 @@ class MyBinarySearchTree<K extends Comparable<K>> {
     public int size() {
         return size(root);
     }
+
+    /*
+     * @desc: Searches for a key in the BST.
+     * @params: key - The key to be searched.
+     * @return: true if the key is found, false otherwise.
+     */
+    public boolean search(K key) {
+        return searchRec(root, key);
+    }
+
+    private boolean searchRec(INode<K> root, K key) {
+        if (root == null) {
+            return false;
+        }
+
+        int compareResult = key.compareTo(root.getKey());
+
+        if (compareResult == 0) {
+            return true; // Key found
+        } else if (compareResult < 0) {
+            return searchRec(root.getLeft(), key); // Search left subtree
+        } else {
+            return searchRec(root.getRight(), key); // Search right subtree
+        }
+    }
 }
 
 public class BSTExample {
@@ -156,10 +181,31 @@ public class BSTExample {
         bst.add(56);
         bst.add(30);
         bst.add(70);
+        bst.add(22);
+        bst.add(40);
+        bst.add(11);
+        bst.add(3);
+        bst.add(16);
+        bst.add(60);
+        bst.add(95);
+        bst.add(65);
+        bst.add(63);
+        bst.add(67);
 
         // Displaying the BST using inorder traversal
         System.out.println("Inorder Traversal of BST:");
         bst.inorderTraversal();
+
+        // Check if all elements are added using size method
+        System.out.println("\nSize of BST: " + bst.size());
+
+        // Search for key 63
+        int keyToSearch = 63;
+        if (bst.search(keyToSearch)) {
+            System.out.println("Key " + keyToSearch + " found in the BST.");
+        } else {
+            System.out.println("Key " + keyToSearch + " not found in the BST.");
+        }
     }
 }
 
